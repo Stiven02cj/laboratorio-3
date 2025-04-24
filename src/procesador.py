@@ -22,6 +22,8 @@ class Analizador:
         ventas_por_provincia = {}
         for fila in self.datos:
             provincia = fila['PROVINCIA']
+            if provincia == "ND":
+                continue
             ventas = fila['TOTAL_VENTAS']
             if provincia in ventas_por_provincia:
                 ventas_por_provincia[provincia] += ventas
@@ -29,9 +31,14 @@ class Analizador:
                 ventas_por_provincia[provincia] = ventas
         return ventas_por_provincia
 
-    def ventas_por_provincia(self, nombre):
+    def ventas_por_provincia(self, nombre_provincia):
         total = 0.0
-        for fila in self.datos:
-            if fila['PROVINCIA'].lower() == nombre.lower():
-                total += fila['TOTAL_VENTAS']
-        return total
+        
+        #obtener el resumen de las ventas de todas las provincias 
+        resumen = self.ventas_por_provincia()
+        #verificar si la provincia 
+        if nombre_provincia not in resumen:
+            raise KeyError(f"La provincia {nombre_provincia} no se encuentra en los datos")
+
+        return resumen[nombre_provincia]
+        
