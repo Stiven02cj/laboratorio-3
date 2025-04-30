@@ -32,13 +32,13 @@ class Analizador:
         return ventas_por_provincia
 
     def ventas_por_provincia(self, nombre_provincia):
-        total = 0.0
-        
-        #obtener el resumen de las ventas de todas las provincias 
-        resumen = self.ventas_por_provincia()
-        #verificar si la provincia 
-        if nombre_provincia not in resumen:
-            raise KeyError(f"La provincia {nombre_provincia} no se encuentra en los datos")
+       """Retoma el total de ventasde una provincia especifica"""
+       nombre_provincia = nombre_provincia.strip().upper()
+       #Obtener el resumen de las ventas de todas las provincias
+       resumen = self.ventas_totales_por_provincia()
 
-        return resumen[nombre_provincia]
+       #Verificar si la provincia está en el diccionario
+       if nombre_provincia not in resumen:
+            raise KeyError(f"La provincia {nombre_provincia} no se encuentra en los datos")
+       return resumen[nombre_provincia]
         
