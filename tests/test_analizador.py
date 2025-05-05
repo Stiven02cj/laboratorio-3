@@ -24,3 +24,4 @@ class TestAnalizador(unittest.TestCase):
     def test_ventas_por_provincia_inexistente(self):
         with self.assertRaises(KeyError):
             self.analizador.ventas_por_provincia("Narnia")
+    

@@ -41,4 +41,19 @@ class Analizador:
        if nombre_provincia not in resumen:
             raise KeyError(f"La provincia {nombre_provincia} no se encuentra en los datos")
        return resumen[nombre_provincia]
-        
+    
+    def exportaciones_totales_por_mes(self):
+        exportaciones_por_mes = {}
+        for fila in self.datos:
+            mes = fila['MES']
+            if mes == "ND":
+                continue
+            try:
+                exportaciones = float(fila['EXPORTACIONES'])
+            except (ValueError, TypeError):
+                continue
+            if mes in exportaciones_por_mes:
+                exportaciones_por_mes[mes] += exportaciones
+            else:
+                exportaciones_por_mes[mes] = exportaciones
+        return exportaciones_por_mes
