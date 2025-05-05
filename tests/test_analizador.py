@@ -24,4 +24,11 @@ class TestAnalizador(unittest.TestCase):
     def test_ventas_por_provincia_inexistente(self):
         with self.assertRaises(KeyError):
             self.analizador.ventas_por_provincia("Narnia")
-    
+
+    def test_exportaciones_totales_por_mes_diccionario(self):
+        exportaciones = self.analizador.exportaciones_totales_por_mes()
+        self.assertIsInstance(exportaciones, dict)
+
+    def test_exportaciones_todos_los_meses_mayor_igual_0(self):
+        exportaciones = self.analizador.exportaciones_totales_por_mes()
+        self.assertTrue(all(float(v) >= 0 for v in exportaciones.values()))
